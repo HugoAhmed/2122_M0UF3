@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head><title>Cruzando la Calle Simulator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.55.2/phaser.min.js"></script>
+</head>
+
+<body>
+<h1>Te falta calle</h1>
+<script>
+let game_w = 800;
+let game_h = 600;
+let car1_img;
+let car2_img;
+let car3_img;
+let car4_img;
+let cars_speed = 2.5;
+let car1_speed = cars_speed + Math.random();
+let car2_speed = cars_speed + Math.random();
+let car3_speed = cars_speed + Math.random();
+let car4_speed = cars_speed + Math.random();
+let road1_y = 160;
+let offset_X = 32;
+let config = { width: game_w,
+				height: game_h,
+				scene: {
+					preload: preload,
+					create: start,
+					update: update
+
+					}
+			 }
+			 let game = new Phaser.Game(config)
+
+			 function preload()
+			 {
+				this.load.image('character', 'character.png');
+				this.load.image('car_black','car_black.jpg');
+				this.load.image('car_blue', 'car_blue.jpg');
+				this.load.image('car_green','car_green.jpg');
+				this.load.image('car_red', 'car_red.jpg');
+				this.load.image('background', 'background.png')
+			 }
+
+			 function start()
+			 {
+				graphics = this.add.graphics();
+				image = this.add.image(500,300, 'background');
+				car1_img = this.add.image(game_w - offset_X, 550, 'car_black');
+				car1_img.rotation =3.15;
+				car1_img.flipY = true;
+				image = this.add.image(300,150, 'car_green');
+				image = this.add.image(100,150,'car_blue');
+				car4_img = this.add.image(game_w - offset_X,450,'car_red');
+				car4_img.rotation = 3.15;
+				car1_img.flipY = true;
+				image = this.add.image(500,150,'character');
+				character.flipX = true;
+			 }
+
+			 function update()
+			 {
+			 	if (cursors.up.isDown)
+				{
+					player_img.i -= player_speed;
+				}
+				else if (cursors.down.isDown)
+				{
+					player_img.x += player_speed;
+				}
+				car1_img.x -= car1_speed;
+				car2_img.x -= car2_speed;
+				car3_img.x += car3_speed;
+				car4_img.x += car4_speed;
+
+		       flipCar(car1_img);
+			   flipCar(car2_img);
+			   flipCar(car3_img);
+			   flipCar(car4_img);
+			 }
+			 function check_car (car)
+			 {
+				if (car.flipX && car.x < -offset_X)
+					car.x = game_w-offset_X;
+				else if (!car.flipX && car.x > game_w+offset_X)
+				car.x = offset_X;
+				
+			 }
+</script>
+<h2>Vaya troncho</h2>
+</body>
+
+</html>
